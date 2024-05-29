@@ -15,4 +15,7 @@ public interface AssessmentServiceV5 {
 	public SBApiResponse readAssessmentResultV5(Map<String, Object> request, String userAuthToken);
 
 	public SBApiResponse submitAssessmentAsync(Map<String, Object> data, String userAuthToken,boolean editMode);
+
+	public SBApiResponse saveAssessmentAsync(Map<String, Object> data, String userAuthToken,boolean editMode);
+
 }
