@@ -1068,6 +1068,8 @@ public class Constants {
 	public static final String OPTION_WEIGHT = "optionWeight";
 	public static final String PROFILE_STATUS = "profileStatus";
 	public static final String NOT_VERIFIED = "NOT-VERIFIED";
+	public static final String PROFILE_STATUS_UPDATED_ON = "profileStatusUpdatedOn";
+	public static final String PROFILE_STATUS_UPDATED_MSG_VIEWED = "isProfileUpdatedMsgViewed";
 	public static final String REQUEST_TYPE = "requestType";
 	public static final String INSIGHT_FIELD_KEY = ".insights.fields";
 	public static final String INSIGHT_REDIS_KEY_MAPPING = ".insights.redis.key.mapping";
