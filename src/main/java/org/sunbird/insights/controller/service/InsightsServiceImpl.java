@@ -192,11 +192,11 @@ public class InsightsServiceImpl implements InsightsService {
                 response.setResponseCode(HttpStatus.BAD_REQUEST);
                 return response;
             }
-            Map<String, String> organisationInsideFields = mapper.readValue(organisationInsideFieldsProperty, new TypeReference<HashMap<String, Object>>() {
+            Map<String, String> organisationInsideFields = mapper.readValue(organisationInsideFieldsProperty, new TypeReference<LinkedHashMap<String, Object>>() {
             });
-            Map<String, String> redisKeyForInsight =  mapper.readValue(redisKeyForInsightsProperty, new TypeReference<HashMap<String, Object>>() {
+            Map<String, String> redisKeyForInsight =  mapper.readValue(redisKeyForInsightsProperty, new TypeReference<LinkedHashMap<String, Object>>() {
             });
-            Map<String, String> cssPropertiesForInsight = mapper.readValue(cssPropertiesForInsightsProperty, new TypeReference<HashMap<String, Object>>() {
+            Map<String, String> cssPropertiesForInsight = mapper.readValue(cssPropertiesForInsightsProperty, new TypeReference<LinkedHashMap<String, Object>>() {
             });
             List<Map<String, Object>> organisationDataMapList = new ArrayList<>();
             for (String organisationId: organizations) {
