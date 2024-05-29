@@ -205,6 +205,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 				Map<String, Object> apiResponse = outboundRequestHandlerService.fetchResultUsingPost(url, otpRequests,
 						headers);
 				if (Constants.OK.equalsIgnoreCase((String) apiResponse.get(Constants.RESPONSE_CODE))) {
+					LOGGER.info("OTP Generation successful");
 					response.setVer("v1");
 					response.getParams().setStatus(Constants.SUCCESS.toUpperCase());
 					response.getParams().setResmsgid(UUID.randomUUID().toString());
@@ -220,6 +221,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 			}
 		}
 		if (StringUtils.isNotBlank(errMsg)) {
+			LOGGER.error("OTP generation request failed, error message : ",errMsg);
 			response.getParams().setStatus(Constants.FAILED);
 			response.getParams().setErrmsg(errMsg);
 			response.setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR);
