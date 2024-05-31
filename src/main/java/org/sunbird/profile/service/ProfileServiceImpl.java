@@ -1806,13 +1806,30 @@ public class ProfileServiceImpl implements ProfileService {
 												updatedProfessionalDetailsMap.get(childKey));
 									}
 								}
+
 								if (isGroupOrDesignationUpdated) {
 									if (StringUtils
-											.isNotBlank((String) existingProfessionalDetailsMap.get(Constants.GROUP)) &&
-											StringUtils
-													.isNotBlank((String) existingProfessionalDetailsMap
-															.get(Constants.DESIGNATION))) {
-											existingProfileDetails.put(Constants.PROFILE_STATUS, Constants.VERIFIED);
+											.isNotBlank((String) existingProfessionalDetailsMap.get(Constants.GROUP))) {
+										existingProfileDetails.put(Constants.PROFILE_GROUP_STATUS, Constants.VERIFIED);
+									} else {
+										existingProfileDetails.put(Constants.PROFILE_GROUP_STATUS,
+												Constants.NOT_VERIFIED);
+									}
+									if (StringUtils
+											.isNotBlank((String) existingProfessionalDetailsMap
+													.get(Constants.DESIGNATION))) {
+										existingProfileDetails.put(Constants.PROFILE_DESIGNATION_STATUS,
+												Constants.VERIFIED);
+									} else {
+										existingProfileDetails.put(Constants.PROFILE_DESIGNATION_STATUS,
+												Constants.NOT_VERIFIED);
+									}
+
+									if (Constants.VERIFIED.equalsIgnoreCase(
+											(String) existingProfileDetails.get(Constants.PROFILE_GROUP_STATUS)) &&
+											Constants.VERIFIED.equalsIgnoreCase((String) existingProfileDetails
+													.get(Constants.PROFILE_DESIGNATION_STATUS))) {
+										existingProfileDetails.put(Constants.PROFILE_STATUS, Constants.VERIFIED);
 									} else {
 										existingProfileDetails.put(Constants.PROFILE_STATUS, Constants.NOT_VERIFIED);
 									}

@@ -3,11 +3,11 @@ package org.sunbird.user.service;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.jcraft.jsch.UserInfo;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
@@ -273,6 +273,13 @@ public class UserUtilityServiceImpl implements UserUtilityService {
 		personalDetails.put(Constants.MOBILE, userRegistration.getPhone());
 		personalDetails.put(Constants.PHONE_VERIFIED, true);
 		profileDetails.put(Constants.PERSONAL_DETAILS, personalDetails);
+		profileDetails.put(Constants.PROFILE_STATUS, Constants.NOT_VERIFIED);
+		profileDetails.put(Constants.PROFILE_GROUP_STATUS, Constants.NOT_VERIFIED);
+		profileDetails.put(Constants.PROFILE_DESIGNATION_STATUS, Constants.NOT_VERIFIED);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
+		String timeStamp = sdf.format(new java.util.Date());
+		profileDetails.put(Constants.PROFILE_STATUS_UPDATED_ON, timeStamp);
 		Map<String, Object> professionDetailObj = new HashMap<String, Object>();
 		professionDetailObj.put(Constants.ORGANIZATION_TYPE, Constants.GOVERNMENT);
 		if (StringUtils.isNotEmpty(userRegistration.getPosition())) {
@@ -651,13 +658,17 @@ public class UserUtilityServiceImpl implements UserUtilityService {
 			personalDetails.put(Constants.GENDER, userRegistration.getGender());
 		}
 		profileDetails.put(Constants.PERSONAL_DETAILS, personalDetails);
+		profileDetails.put(Constants.PROFILE_GROUP_STATUS, Constants.NOT_VERIFIED);
+		profileDetails.put(Constants.PROFILE_DESIGNATION_STATUS, Constants.NOT_VERIFIED);
 		Map<String, Object> professionDetailObj = new HashMap<String, Object>();
 		professionDetailObj.put(Constants.ORGANIZATION_TYPE, Constants.GOVERNMENT);
 		if (StringUtils.isNotEmpty(userRegistration.getPosition())) {
 			professionDetailObj.put(Constants.DESIGNATION, userRegistration.getPosition());
+			profileDetails.put(Constants.PROFILE_DESIGNATION_STATUS, Constants.VERIFIED);
 		}
 		if (!StringUtils.isEmpty(userRegistration.getGroup())) {
 			professionDetailObj.put(Constants.GROUP, userRegistration.getGroup());
+			profileDetails.put(Constants.PROFILE_GROUP_STATUS, Constants.VERIFIED);
 		}
 		List<Map<String, Object>> professionalDetailsList = new ArrayList<Map<String, Object>>();
 		professionalDetailsList.add(professionDetailObj);
@@ -675,12 +686,16 @@ public class UserUtilityServiceImpl implements UserUtilityService {
 		profileDetails.put(Constants.ADDITIONAL_PROPERTIES, additionalProperties);
 		profileDetails.put(Constants.VERIFIED_KARMAYOGI, false);
 		profileDetails.put(Constants.MANDATORY_FIELDS_EXISTS, false);
-		if (StringUtils.isNotBlank(userRegistration.getGroup())
-				&& StringUtils.isNotBlank(userRegistration.getPosition())) {
+		if (Constants.VERIFIED.equalsIgnoreCase((String) profileDetails.get(Constants.PROFILE_GROUP_STATUS))
+				&& Constants.VERIFIED.equalsIgnoreCase((String) profileDetails.get(Constants.PROFILE_DESIGNATION_STATUS))) {
 			profileDetails.put(Constants.PROFILE_STATUS, Constants.VERIFIED);
 		} else {
 			profileDetails.put(Constants.PROFILE_STATUS, Constants.NOT_VERIFIED);
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT+05:30"));
+		String timeStamp = sdf.format(new java.util.Date());
+		profileDetails.put(Constants.PROFILE_STATUS_UPDATED_ON, timeStamp);
 		requestBody.put(Constants.PROFILE_DETAILS, profileDetails);
 		request.put(Constants.REQUEST, requestBody);
 		Map<String, Object> readData = (Map<String, Object>) outboundRequestHandlerService.fetchResultUsingPatch(
