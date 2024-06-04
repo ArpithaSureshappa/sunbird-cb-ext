@@ -1060,6 +1060,9 @@ public class Constants {
 	public static final String PAGE_ID = "pageId";
 	public static final String USERS_LIST = "userList";
 	public static final String TOTAL_COUNT = "totalCount";
+	public static final String TOO_MANY_REQUESTS = "TOO_MANY_REQUESTS";
+	public static final String SERVER_ERROR = "serverError";
+	public static final String RESOURCE_NOT_FOUND = "RESOURCE_NOT_FOUND";
 	public static final String MICROSITE_TOP_CONTENT_API = "api.microsite.top.content";
 	public static final String ICON = "icon";
 	public static final String DOMICILE_MEDIUM = "domicileMedium";
@@ -1072,6 +1075,7 @@ public class Constants {
 	public static final String PROFILE_STATUS_UPDATED_MSG_VIEWED = "isProfileUpdatedMsgViewed";
 	public static final String PROFILE_GROUP_STATUS = "profileGroupStatus";
 	public static final String PROFILE_DESIGNATION_STATUS = "profileDesignationStatus";
+	public static final String NOT_MY_USER = "NOT-MY-USER";
 	public static final String REQUEST_TYPE = "requestType";
 	public static final String INSIGHT_FIELD_KEY = ".insights.fields";
 	public static final String INSIGHT_REDIS_KEY_MAPPING = ".insights.redis.key.mapping";
